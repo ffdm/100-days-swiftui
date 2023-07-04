@@ -78,3 +78,58 @@ class Car: Vehicle {
     }
 }
 ```
+## Copying classes
+Classes are reference types, so all copies of classes are still
+referencing the same date. To create a deep copy, you can just
+write a function that returns an instance of ur struct:
+```
+class User {
+    var username = "Anonymous"
+
+    func copy() -> User {
+        let user = User()
+        user.username = username
+        return user
+    }
+}
+```
+## Deinitializer
+- Doesn't use `func` keyword
+- Can't take paremeters or return data
+- Called when final copy of a class instance is destroyed (they 
+    are destroyed when they become out of scope)
+- Can never be called directly
+### Scope basics
+- Vars created in function have scope of the function
+- Vars created in `if` condition have scope of the condition
+- Vars created in `for` loop, including the loop variable itself
+    have the loop as scope
+In each of these cases, the scope is inside of the braces.
+## Variables stored inside classes
+```
+class User {
+    var name = "Paul"
+}
+
+let user = User()
+user.name = "Taylor"
+print(user.name)
+```
+This is ok... why? Because our class is a reference data type. 
+Therefore when we change its name property, we aren't actually 
+changing the memory address stored as our class variable, but 
+rather the data the memory pointed to by that address stores.
+Now suppose our class instance is actually variable. So we can
+change the memory addresses:
+```
+class User {
+    var name = "Paul"
+}
+
+var user = User()
+user.name = "Taylor"
+user = User()
+print(user.name)
+```
+Here we can write `user = User()`, which sets our class instance
+to a completely new class instance. 
